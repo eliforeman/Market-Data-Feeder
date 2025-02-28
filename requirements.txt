@@ -1,0 +1,6 @@
+dotenv
+alpaca-trade-api
+websockets
+redis
+asyncio
+

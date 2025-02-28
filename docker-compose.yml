@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  redis:
+    image: "redis:alpine"     # Use the lightweight Redis image
+    container_name: "redis"
+    ports:
+      - "6379:6379"           # Map Redis default port
+
+  python-app:
+    build: .
+    container_name: "market_data_feeder"
+    depends_on:
+      - redis                 # Ensure Redis is up before the app starts
+    ports:
+      - "5000:5000"           # Expose port for the Python app if needed
+    environment:
+      - REDIS_HOST=localhost      # Define the Redis host as 'redis' (the service name)
+    volumes:
+      - .:/app                # Mount the current directory into the container
+
